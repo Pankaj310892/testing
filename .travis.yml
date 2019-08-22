@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t pankaj310892/frontend:v1 -f Dockerfile.dev .
+script:
+  - docker run -e CI=true pankaj310892/frontend:v1 npm run test -- --coverage
+deploy:
+  provider: elasticbeanstalk
+  region: ""
+  app: ""
+  env: ""
+  bucket_name: ""
+  buckey_path: ""
+  on:
+    branch: master
+  access_key_id: $
+  secret_access_key:
+    secure: "$"
